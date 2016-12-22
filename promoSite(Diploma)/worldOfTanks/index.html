@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> World Of Tanks </title>
+    <link rel='stylesheet' href='./../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+    <script src='./../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='./../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+    <link rel='stylesheet' href=./../css/all.css>
+    <link rel='stylesheet' href='./css/all.css'>
+
+    <script src='./app.js'></script>
+</head>
+
+<body>
+    <div id='wrapper'>
+        <header>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Menu:</button>
+                <a class="navbar-brand" href="./../index.html">Main page</a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-header">Logical Games</li>
+                    <li><a href="./../pyatnashki/index.html">Пятнашки</a></li>
+                    <li class="dropdown-header"></li>
+                    <li><a href="./../formConstructor/index.html">Form Consturctor(RegExp)</a></li>
+                    <li><a href="./index.html">Tanks</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <div id='main'>
+            <div id='Centr' class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                <div id='onlineStatus'>
+                </div>
+                <div id='CentralDiv'>
+                    <img id='Tank' src='./view/images/tank-small.png' alt='Tank'>
+
+                </div>
+            </div>
+
+            <div id='ControlsAndStatus' class="row">
+                <div id='Status' class="col-sm-4 col-md-4 col-lg-4 col-xs-4">
+                    <div id='Speed'>
+                        <script>
+                            document.getElementById('Speed').innerHTML = 'Speed : ' + t35.speed;
+                        </script>
+                    </div>
+                    <div id='Ammo'>
+                        <script>
+                            document.getElementById('Ammo').innerHTML = 'Ammo : ' + t35.ammo;
+                        </script>
+                    </div>
+                    <div id='Hp'>
+                        <script>
+                            document.getElementById('Hp').innerText = 'Hp : ' + t35.hp;
+                        </script>
+                    </div>
+                    <div id='Fuel'>
+                        <script>
+                            document.getElementById('Fuel').innerText = 'Fuel : ' + t35.fuel;
+                        </script>
+                    </div>
+                    <!--</div>-->
+                </div>
+
+                <div id='Controls' class="col-sm-4 col-md-4 col-lg-4 col-xs-4">
+
+
+
+                    <div id='controlHints' class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                        <button onclick=t35.goFaster()> Speed up! </button>
+                    </div>
+
+                    <row>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-4">
+                            <button onclick=t35.turnLeft()> Turn Left </button>
+                        </div>
+
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-4">
+                            <button id="Piy" onclick=t35.shot()> Piy piy! </button>
+                        </div>
+
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-4">
+                            <button onclick=t35.turnRight()> Turn right </button>
+                        </div>
+                    </row>
+
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                        <button onclick=t35.goSlower()> Slow down </button>
+                    </div>
+
+
+
+                </div>
+
+                <div id='controlsHint' class="col-sm-4 col-md-4 col-lg-4 col-xs-4">
+                    <p>Controls : </p>
+                    <p>W - go Faster </p>
+                    <p>S - go Slower </p>
+                    <p>A - turn Left </p>
+                    <p>D - turn Right </p>
+                    <p>E - Shoot </p>
+                    <button id='startFinishButton'> Start Game </button>
+                </div>
+            </div>
+        </div>
+        <footer id='foot' class="container-fluid">
+
+
+            <p> Made by Levada Denys</p>
+            <p> levada.denys@gmail.com </p>
+            <p> 2016 </p>
+
+        </footer>
+
+    </div>
+    <script>
+        function keyControls(event) {
+            if (event.keyCode === 87) {
+                t35.goFaster();
+            } else if (event.keyCode === 83) {
+                t35.goSlower();
+            } else if (event.keyCode === 65) {
+                t35.turnLeft();
+            } else if (event.keyCode === 68) {
+                t35.turnRight();
+            } else if (event.keyCode === 69) {
+                t35.shot();
+            }
+        }
+        window.addEventListener('keydown', keyControls);
+        $("#startFinishButton").click(startFinishGame);
+    </script>
+</body>
+
+</html>
