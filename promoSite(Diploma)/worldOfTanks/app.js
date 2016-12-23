@@ -1,6 +1,8 @@
-function MoveTank(mTop, mLeft, mBottom, mRight) {
+class MoveTank {
+    constructor() {}
 
-    this.up = function up(mTop) {
+
+    static up(mTop) {
         let defTop = parseFloat($("#Tank").css('top'));
         let defBottom = parseFloat($("#Tank").css("bottom"));
         let newTop = defTop - mTop - defBottom;
@@ -13,7 +15,7 @@ function MoveTank(mTop, mLeft, mBottom, mRight) {
         }
     }
 
-    this.left = function left(mLeft) {
+    static left(mLeft) {
         let defLeft = parseFloat($("#Tank").css('left'));
         let defRight = parseFloat($("#Tank").css("right"));
         let newLeft = defLeft - mLeft - defRight;
@@ -26,7 +28,7 @@ function MoveTank(mTop, mLeft, mBottom, mRight) {
         }
     }
 
-    this.down = function down(mBottom) {
+    static down(mBottom) {
         let defTop = parseFloat($("#Tank").css('top'));
         let defBottom = parseFloat($("#Tank").css("bottom"));
         let newBottom = defBottom - mBottom - defTop;
@@ -40,7 +42,7 @@ function MoveTank(mTop, mLeft, mBottom, mRight) {
         }
     }
 
-    this.right = function right(mRight) {
+    static right(mRight) {
         let defLeft = parseFloat($("#Tank").css('left'));
         let defRight = parseFloat($("#Tank").css("right"));
         let newRight = defRight - mRight - defLeft;
@@ -54,102 +56,91 @@ function MoveTank(mTop, mLeft, mBottom, mRight) {
     }
 }
 
-var controls = new MoveTank();
 
-function Tank(amunition) {
-    this.speed = 0;
-    this.fuel = 100;
-    this.hp = 100;
-    this.ammo = amunition;
-    this.crew = 4;
-
-    Tank.prototype.goFaster = function() {
+class T52 {
+    constructor(amunition) {
+        this.model = "T52";
+        this.speed = 0;
+        this.fuel = 100;
+        this.hp = 100;
+        this.ammo = amunition;
+        this.crew = 4;
+        this.towers = 1;
+    }
+    _printSpeed() {
+        document.getElementById('Speed').innerHTML = `Speed : ${this.speed}`;
+    }
+    _isMoving() {
+        if (this.speed > 0) return true;
+        alert('We stopped!');
+    }
+    goFaster() {
         if (this.speed < 100) {
-            document.getElementById('Speed').innerHTML = 'Speed : ' + (++this.speed);
-            controls.up(30);
-            return this.speed;
-        }
-        return alert('We can`t go faster!');
+            ++this.speed;
+            this._printSpeed();
+            MoveTank.up(30);
+        } else alert('We can`t go faster!');
     };
-
-    this.goSlower = function() {
-        if (this.speed === 0) {
-            return alert('We already stopped!');
-        }
-        document.getElementById('Speed').innerHTML = 'Speed : ' + (--this.speed);
-        controls.down(30);
-        return this.speed;
-    };
-
-    this.turnLeft = function() {
-        if (this.speed != 0) {
-            controls.left(30);
-        } else {
-            alert('We already stopped!');
+    goSlower() {
+        if (this._isMoving()) {
+            --this.speed;
+            this._printSpeed();
+            MoveTank.down(30);
         }
     };
-
-    this.turnRight = function() {
-        if (this.speed != 0) {
-            controls.right(30);
-        } else {
-            alert('We already stopped!');
-        }
+    turnLeft() {
+        if (this._isMoving()) MoveTank.left(30);
     };
-
-    this.shot = function() {
-        if (this.ammo === 0) {
-            return alert('We`re out of ammo!');
-        } else if (this.speed >= 40) {
-            return alert('We`re going to fast. We have to slow down first!');
-        }
-        document.getElementById('Ammo').innerHTML = 'Ammo : ' + (--this.ammo);
-        $("#Tank").css('background', 'red');
-        return this.ammo;
+    turnRight() {
+        if (this._isMoving()) MoveTank.right(30);
     };
-}
+    shot() {
+        if (this.speed >= 40) alert('We`re going to fast. We have to slow down first!');
+        else if (this.ammo >= this.towers) {
+            this.ammo -= this.towers;
+            document.getElementById('Ammo').innerHTML = 'Ammo : ' + (this.ammo);
+            $("#Tank").css('background', 'red');
+        } else alert('We`re out of ammo!');
+    }
 
-var t52 = new Tank(100);
+};
 
+let t52 = new T52(100);
 
-var T35 = function(amunition) {
-    Tank.call(this, amunition);
-    this.towers = 5;
-    this.shot = function() {
-        if (this.ammo < 5) {
-            return alert('We`re out of ammo!');
-        } else if (this.speed >= 40) {
-            return alert('We`re going to fast. We have to slow down first!')
-        }
-        this.ammo -= 5;
-        document.getElementById('Ammo').innerHTML = 'Ammo : ' + this.ammo;
-        $("#Tank").css('background', 'red');
-        setTimeout(function() { $("#Tank").css("background", "none") }, 1500);
-        return this.ammo;
+class T35 extends T52 {
+    constructor(amunition) {
+        super(amunition);
+        this.model = "T35";
+        this.towers = 5;
+    }
+    shot() {
+        super.shot()
+        setTimeout(() => { $("#Tank").css("background", "none") }, 1500);
     }
 }
 
-T35.prototype = Object.create(Tank.prototype);
-T35.prototype.constructor = T35;
-
-var t35 = new T35(100);
+let t35 = new T35(100);
 
 
-function chooseTheTank() {
-    let tank = prompt('Chose the tank');
-    if (tank === 't52') {
-        return tank;
+function chooseTheTank(tank) {
+    let availableTanks = [t52.model, t35.model];
+    if ((availableTanks.indexOf(tank.model)) !== -1) return tank;
+    alert('Wrong tank model!');
 
-    } else if (tank === 't35') {
-        return tank;
-    } else {
-        alert('There are no such tanks!')
-    }
 }
-//var tanky = chooseTheTank ();
-//console.log(tanky.goSlower());
 
-var isGameStart = 0;
+let tank;
+try {
+    tank = chooseTheTank(t35);
+} catch (e) {
+    alert('Wrong tank model!');
+    tank = t52;
+};
+
+
+
+
+let isGameStart = 0;
 
 function startFinishGame() {
     if (isGameStart === 0) {
