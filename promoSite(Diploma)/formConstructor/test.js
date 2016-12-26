@@ -15,14 +15,7 @@ describe('Проверка конструктора форм (Добавлени
         form.addForm('q', '^asd$');
         assert.equal('^asd$', form.form.q);
     });
-    it('Name : 123, regEx : 123 (Not correct name)', function() {
-        form.addForm('123', '123');
-        assert.equal(false, form.form.hasOwnProperty('123'));
-    });
-    it('Name : 12Dog, regEx : 321 (Not correct name)', function() {
-        form.addForm('12Dog', '321');
-        assert.equal(false, form.form.hasOwnProperty('12Dog'));
-    });
+
     it('Name : Dog12, regEx : \\w (correct name)', function() {
         form.addForm('Dog12', '\w');
         assert.equal('\w', form.form.Dog12);
