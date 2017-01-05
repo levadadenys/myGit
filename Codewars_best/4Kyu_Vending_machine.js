@@ -14,7 +14,10 @@ class VendingMachine {
 
         let creditSum = 0;
 
-        for (let i = 0; i < creditCoins.length; i++) creditSum += creditCoins[i] * creditVals[i];
+        for (let i = 0; i < creditCoins.length; i++) {
+            if (this.coins[creditCoins[i]] === undefined) return credit;
+            creditSum += creditCoins[i] * creditVals[i];
+        }
 
         if (creditSum >= price) {
             this.insertCoins(creditCoins, creditVals);
@@ -73,7 +76,7 @@ class VendingMachine {
 // Test.assertSimilar(vm.vending(12, {6:1, 4:2}), {2:1});
 // Test.assertSimilar(vm.vending(12, {6:4}), {6:2});
 
-// Test.assertSimilar(vm.vending(12, {6:4, 3:4}), {6:4});  
+// Test.assertSimilar(vm.vending(12, {6:4, 3:4}), {6:4, 3:4});  
 // Test.assertSimilar(vm.vending(12, {4:5}), {2:1, 6:1});
 // Test.assertSimilar(vm.vending(17, {4:4, 2:1}), {1:1});
 // Test.assertSimilar(vm.vending(17, {4:4, 2:1}), {}, 'There is no 1 value coins');
