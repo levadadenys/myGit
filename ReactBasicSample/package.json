@@ -1,0 +1,21 @@
+{
+  "name": "react_practise",
+  "version": "1.0.0",
+  "description": "react",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "levada_denys",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}
