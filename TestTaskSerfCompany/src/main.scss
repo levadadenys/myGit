@@ -1,0 +1,27 @@
+body {
+    background: lemonchiffon;
+}
+#Root {
+    margin: auto;
+    padding: 15px;
+    margin-top: 25px;
+}
+
+.addTagButton {
+    border-radius: 25px;
+    color: white;
+    background: green;
+    margin-left: 90%;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    border: 1px solid #18ab29;
+
+}
+.selected {
+    background: yellow;
+}
+
+.tagged {
+    background: lightseagreen;
+}
