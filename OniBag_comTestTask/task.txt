@@ -1,0 +1,5 @@
+Make reactjs app, 2 text fields (pick-up address, drop off address) and a button "submit". 
+it needs to get coordinates and address components from input fields,
+after that, it checks distance (less than 20 miles) and pushes it to firebase as a unique record 
+if it's within range area. All code have to be in ES6+
+It will be cool if you will be able to use redux, but not necessary.
