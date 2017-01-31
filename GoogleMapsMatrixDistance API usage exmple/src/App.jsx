@@ -40,7 +40,7 @@ class AddressForm extends React.Component {
         .then((response) => {
             let distance = response.data.rows[0].elements[0].distance.value;
 
-            if (distance <= parseFloat(32186,8)) { // 32186,8 meters = 20 miles
+            if (parseFloat(distance) <= 32186,8) { // 32186,8 meters = 20 miles
                 let uploadingData = [{
                     origin_addresses: response.data.origin_addresses[0],
                     destination_addresses: response.data.destination_addresses[0],
